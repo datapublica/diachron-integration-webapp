@@ -1,0 +1,19 @@
+<div class="search-result-container">
+    <a ui-sref="company({siren:SearchResult.result.siren,name:SearchResult.getFormattedName(SearchResult.result.names.official)})">
+        <p class="company-name">{{SearchResult.result.names.official}}</p>
+        <p class="company-naf" ng-if="SearchResult.result.naf.code && SearchResult.result.naf.label">
+            {{SearchResult.result.naf.label}}
+        </p>
+        <div class="company-meta">
+            <md-divider></md-divider>
+            <div class="company-inner-meta">
+                <div class="company-city">
+                    <small><i>{{SearchResult.result.city.slice(0,1) | uppercase}}{{SearchResult.result.city.slice(1,SearchResult.result.city.length) | lowercase}}</i></small>
+                </div>
+                <div class="company-date" ng-class="{invisible : !SearchResult.result.creationDate}">
+                    <small><i>Créée en {{SearchResult.result.creationDate | date:'yyyy'}}</i></small>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,40 @@
+<div class="homepage">
+	<div class="homepage-container">
+		<div layout="row">
+			<div class="index-column secondary" flex="25">
+				<div ng-repeat="item in Home.datasets">
+					<div ng-click="Home.toggle(item)" class="active item">
+						{{item.name}}
+					</div>
+					<div ng-repeat="version in item.versions" ng-if="item.expanded" class="version active"
+						 ng-class="{'selected':version.selected}"
+						 ng-click="Home.selectVersion(item, version)">
+						{{version.name}} {{version.date | date}}
+					</div>
+				</div>
+			</div>
+			<div class="content-column" flex="75">
+				<div class="content-container" ng-if="Home.selectedVersion">
+					<div class="section">
+						<h3>{{Home.selectedItem.name}} / {{Home.selectedVersion.name}}</h3>
+						<h4>Structure</h4>
+
+						<div class="section-container">
+							No structural change in this version of the dataset
+						</div>
+					</div>
+
+					<div class="section">
+						<h4>Data completion analysis</h4>
+
+						<div class="section-container">
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

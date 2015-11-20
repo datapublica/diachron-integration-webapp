@@ -1,0 +1,11 @@
+<div class="search-bar-container">
+    <form ng-submit="SearchBar.searchQuery(SearchBar.query)">
+        <md-input-container md-no-float ng-if="!SearchBar.float">
+            <input ng-model="SearchBar.query" type="text" placeholder="Rechercher">
+        </md-input-container>
+        <md-input-container ng-if="SearchBar.float">
+            <label>Effectuez une recherche d'informations entreprises</label>
+            <input ng-model="SearchBar.query" type="text">
+        </md-input-container>
+    </form>
+</div>

@@ -1,0 +1,9 @@
+<div class="search">
+    <div class="search-container">
+        <h4><span class="nb-results">{{Search.searchResults.length}}</span>&nbsp;résultat<span ng-if="Search.searchResults.length > 1">s</span></h4>
+        <div class="results-container" layout="row" layout-wrap>
+            <search-result ng-repeat="result in Search.searchResults" result="result" flex="20">
+            </search-result>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+@require '../../variables.styl'
+
+.navbar
+  .navbar-container
+    height: navbar-height
+    padding: 20px
+    background-color: #ffffff
+    .navbar-logo
+      img
+        max-height navbar-height
+        float: left
+    .search-bar-container
+      width: 991px
+      margin: auto
+      md-input-container
+        .md-input
+          color color-primary
+        &:not(.md-input-invalid).md-input-focused .md-input
+          border-bottom: 1px solid white
+

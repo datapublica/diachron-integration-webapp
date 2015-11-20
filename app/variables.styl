@@ -1,0 +1,32 @@
+color-primary = #171D25
+color-primary-hover = rgb(41, 43, 51)
+color-primary-background = #D0D1D5
+color-primary-background-hover = #7c8795
+
+color-secondary = rgb(41, 43, 51)
+color-secondary-hover = #3E414A
+color-secondary-background = #7c8795
+color-secondary-background-hover = #D0D1D5
+
+navbar-height = 40px
+
+body
+  color: color-primary
+  background-color: color-primary-background
+  .secondary
+    color: color-secondary
+    background-color: color-secondary-background
+    a:hover, .active:hover
+      color: color-secondary-hover
+      background-color: color-secondary-background-hover
+    a.selected, .active.selected
+      color: color-primary
+      background-color: color-primary-background
+  a:hover, .active:hover
+    cursor pointer
+    color color-primary-hover
+    background-color: color-primary-background-hover
+  a.secondary:hover, .active.secondary:hover
+    color: color-secondary-hover
+    background-color: color-secondary-background-hover
+

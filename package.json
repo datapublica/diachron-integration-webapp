@@ -1,0 +1,42 @@
+{
+  "name": "diachron-integration-webapp",
+  "version": "0.0.1",
+  "description": "Web interface for diachron integration",
+  "main": "app/index.js",
+  "repository": "git@gitorious.data-publica.com:friton/corpy-crush.git",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-animate": "^1.4.7",
+    "angular-aria": "^1.4.7",
+    "angular-i18n": "^1.4.7",
+    "angular-material": "^0.11.4",
+    "d3": "^3.5.6",
+    "ui-router": "^0.2.15"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.7",
+    "babel-loader": "^5.3.2",
+    "chai": "^3.4.0",
+    "css-loader": "^0.21.0",
+    "karma": "^0.13.14",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "ng-annotate-loader": "0.0.10",
+    "phantomjs": "^1.9.18",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.4.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test karma start",
+    "start": "node node_modules/.bin/webpack-dev-server --inline --content-base app",
+    "build": " rm -rf dist/* && NODE_ENV=production node node_modules/.bin/webpack && cp app/index.html dist/index.html && cp app/robots.txt dist/robots.txt && cp -r app/assets dist"
+  },
+  "author": "Data Publica",
+  "license": "ISC"
+}
