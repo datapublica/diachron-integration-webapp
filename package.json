@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Web interface for diachron integration",
   "main": "app/index.js",
-  "repository": "git@gitorious.data-publica.com:friton/corpy-crush.git",
+  "repository": "git@github.com:datapublica/diachron-integration-webapp.git",
   "dependencies": {
     "angular": "^1.4.7",
     "angular-animate": "^1.4.7",
