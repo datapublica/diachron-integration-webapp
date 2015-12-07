@@ -1,40 +1,63 @@
 <div class="homepage">
-	<div class="homepage-container">
-		<div layout="row">
-			<div class="index-column secondary" flex="25">
-				<div ng-repeat="item in Home.datasets">
-					<div ng-click="Home.toggle(item)" class="active item">
-						{{item.name}}
-					</div>
-					<div ng-repeat="version in item.versions" ng-if="item.expanded" class="version active"
-						 ng-class="{'selected':version.selected}"
-						 ng-click="Home.selectVersion(item, version)">
-						{{version.name}} {{version.date | date}}
-					</div>
-				</div>
-			</div>
-			<div class="content-column" flex="75">
-				<div class="content-container" ng-if="Home.selectedVersion">
-					<div class="section">
-						<h3>{{Home.selectedItem.name}} / {{Home.selectedVersion.name}}</h3>
-						<h4>Structure</h4>
+    <div class="homepage-container">
+        <div layout="row">
+            <div class="index-column secondary" flex="25">
+                <div ng-repeat="item in Home.datasets">
+                    <div ng-click="Home.toggle(item)" class="active item">
+                        {{item.name}}
+                    </div>
+                    <div ng-repeat="version in item.versions" ng-if="item.expanded" class="version active"
+                         ng-class="{'selected':version.selected}"
+                         ng-click="Home.selectVersion(item, version)">
+                        {{version.name}} {{version.date | date}}
+                    </div>
+                </div>
+            </div>
+            <div class="content-column" flex="75">
+                <div class="content-container" ng-if="Home.selectedVersion">
+                    <h3>{{Home.selectedItem.name}} / {{Home.selectedVersion.uri}}</h3>
 
-						<div class="section-container">
-							No structural change in this version of the dataset
-						</div>
-					</div>
+                    <div class="section">
+                        <h4>Structure</h4>
 
-					<div class="section">
-						<h4>Data completion analysis</h4>
+                        <div class="section-container">
+                            <ul>
+                                <li ng-repeat="item in Home.selectedVersion.dimensions" class="dimension">{{item.label}}
+                                    ({{item.type}})
+                                </li>
+                                <li ng-repeat="item in Home.selectedVersion.measures" class="measure">{{item.label}}
+                                    ({{item.type}})
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-						<div class="section-container">
+                    <div class="section">
+                        <h4>Changes since the previous version</h4>
 
-						</div>
-					</div>
+                        <div class="section-container">
 
-				</div>
-			</div>
-		</div>
-	</div>
+                            Summary of changes
+                            <ul>
+                                <li ng-repeat="(type, changes) in Home.changes">{{type}} : {{changes.length}}</li>
+                            </ul>
+
+                            <div ng-if="Home.CodelistChanges">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h4>Data completion analysis</h4>
+
+                        <div class="section-container">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

@@ -12,8 +12,6 @@ const ngModule = angular.module('diachron', [
 	require('angular-material'),
 	require('./modules/home'),
 	require('./modules/navbar'),
-	'searchService',
-	'utilsService',
 	'ngLocale'
 ])
 	.config(require('./app'))

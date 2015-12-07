@@ -1,4 +1,4 @@
-class UtilsService {
+class Utils {
     constructor(){
     }
 
@@ -7,12 +7,11 @@ class UtilsService {
         return name;
     }
 
-    static utilsService(){
-        return new UtilsService();
+    static instance(){
+        return new Utils();
     }
 }
 
-angular.module('utilsService', [])
-    .service('UtilsService', UtilsService.utilsService);
+angular.module('diachron').service('Utils', Utils.instance);
 
-export default 'utilsService';
+export default 'Utils';

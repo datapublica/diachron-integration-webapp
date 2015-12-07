@@ -27,9 +27,10 @@ var config = {
         ]
     },
     devServer: {
+        port: 3001,
         proxy: {
             '/api*': {
-                target: 'http://10.1.1.100:8081',
+                target: 'http://localhost:8080',
                 secure: false
             }
         }

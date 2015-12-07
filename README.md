@@ -11,6 +11,13 @@
 
 ### change visualization strategy
 
+stats par type de changement
+
+
+DELETE_MEASURE
+ADD_MEASURE
+
+
 
 ##### columns added or removed from fact table
 

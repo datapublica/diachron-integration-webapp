@@ -12,7 +12,6 @@ class SearchService {
     }
 }
 
-angular.module('searchService', [])
-    .service('SearchService', SearchService.searchService);
+angular.module('diachron').service('SearchService', SearchService.searchService);
 
 export default 'searchService';
