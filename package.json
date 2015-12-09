@@ -1,6 +1,6 @@
 {
   "name": "diachron-integration-webapp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Web interface for diachron integration",
   "main": "app/index.js",
   "repository": "git@github.com:datapublica/diachron-integration-webapp.git",
