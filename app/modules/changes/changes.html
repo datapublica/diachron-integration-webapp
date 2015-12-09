@@ -8,9 +8,12 @@
                 </div>
 
                 <div>
-
+                    <highchart id="measureChart" config="Changes.measureChartConfig"></highchart>
                 </div>
 
+                <div>
+                    <highchart id="dimensionChart" config="Changes.dimensionChartConfig"></highchart>
+                </div>
 
             </div>
 
@@ -18,7 +21,7 @@
                 <div class="content-container">
                     <h3></h3>
 
-                    <div ng-repeat="item in Changes.changes.data">
+                    <div ng-repeat="item in Changes.changes.data" class="change-item">
                         <p>{{item.type}}</p>
                         <ul>
                             <li ng-repeat="(k, v) in item.properties">{{k}} : {{v}}</li>

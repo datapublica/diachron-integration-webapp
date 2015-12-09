@@ -23,9 +23,26 @@ export default class ChangesController {
 
 		};
 
-		var typeChartConfig = {
+		function toggleFilter(attr) {
+			var values = $location.search()[attr] || [];
+			var i = values.indexOf(this.category);
+			if (i >= 0) {
+				values.splice(i, 1);
+			} else {
+				values.push(this.category);
+			}
+			$location.search(attr, values);
+			$scope.$apply();
+		}
+
+
+		var filterChartConfig = {
 			chart: {
-				type: 'bar'
+				type: 'bar',
+				marginLeft: 200
+			},
+			legend: {
+				enabled: false
 			},
 			tooltip: {
 				style: {
@@ -35,43 +52,67 @@ export default class ChangesController {
 			},
 			plotOptions: {
 				series: {
-					cursor: 'pointer',
-					point: {
-						events: {
-							click: function () {
-								var t = $location.search().type || [];
-								var i = t.indexOf(this.category);
-								if (i >= 0) {
-									t.splice(i, 1);
-								} else {
-									t.push(this.category);
-								}
-								$location.search("type", t);
-								$scope.$apply();
-							}
-						}
-					}
+					cursor: 'pointer'
+				},
+				bar: {
+					pointWidth: 20,
+					grouping: false
 				}
-			}
+			},
+			yAxis: {
+				minTickInterval: 1
+			},
+			allowPointSelect: true
 		};
 
-		var typeFacets = [];
-		angular.forEach(changes.facets.type, (value, key) => {
-			typeFacets.push({
-				key: key,
-				value: value
-			})
-		});
-		ctrl.typeChartConfig = angular.extend({
-			series: [{
-				name: "occurences",
-				data: typeFacets.map(f => f.value)
-			}],
-			xAxis: {
-				categories: typeFacets.map(f => f.key)
-			}
-		}, typeChartConfig);
+		function toList(object) {
+			var list = [];
 
+			angular.forEach(object, (value, key) => {
+				list.push({
+					key: key,
+					value: value
+				})
+			});
 
-    }
+			return list;
+		}
+
+		function createChart(attr, facetItems, config, title) {
+
+			return angular.merge({
+				title: {
+					text: title
+				},
+				series: [{
+					name: "occurences",
+					data: facetItems.map(f => f.value)
+				}],
+				xAxis: {
+					categories: facetItems.map(f => f.key)
+				},
+				plotOptions: {
+					series: {
+						point: {
+							events: {
+								click: function() {
+									toggleFilter.apply(this, [attr]);
+								}
+							}
+						}
+					},
+					bar: {
+						pointWidth: 20
+					}
+				}
+			}, config);
+		}
+
+		ctrl.typeChartConfig =
+			createChart("type", toList(changes.facets.type), filterChartConfig, "Change types");
+		ctrl.measureChartConfig =
+			createChart("measure", toList(changes.facets.measure), filterChartConfig, "Impacted measures");
+		ctrl.dimensionChartConfig =
+			createChart("dimension", toList(changes.facets.dimension), filterChartConfig, "Impacted dimensions");
+	}
 }
