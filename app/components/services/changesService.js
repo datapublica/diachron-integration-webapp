@@ -3,11 +3,14 @@ class Changes {
         this.http = $http;
     }
 
-    get(dataset, from, to) {
-        return this.http.get('/api/change/' + dataset, { params: {
+    search(dataset, from, to, filter, offset, limit) {
+        filter = filter || {};
+        return this.http.get('/api/changes/' + dataset, { params: angular.extend({
             fromVersion: from,
-            toVersion: to
-        }}).then(response => response.data);
+            toVersion: to,
+            offset: offset,
+            limit: limit
+        }, filter)}).then(response => response.data);
     }
 
     static instance($http){

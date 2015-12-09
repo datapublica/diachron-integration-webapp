@@ -10,8 +10,12 @@
     "angular-aria": "^1.4.7",
     "angular-i18n": "^1.4.7",
     "angular-material": "^0.11.4",
-    "d3": "^3.5.6",
-    "ui-router": "^0.2.15"
+    "ui-router": "^0.2.15",
+    "highcharts-commonjs": "^4.1.7-1",
+    "highcharts": "~4.1.10",
+    "highcharts-ng": "^0.0.11",
+    "exports-loader": "0.6.2",
+    "imports-loader": "0.6.5"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.7",

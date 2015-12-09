@@ -17,7 +17,7 @@ export default class HomeController {
 			ctrl.selectedItem = item;
 
 			// get version details
-			Changes.get(item.uri, version.id - 1, version.id).then(changes => {
+			Changes.search(item.uri, version.id - 1, version.id).then(changes => {
 				ctrl.changes = changes;
 			})
 

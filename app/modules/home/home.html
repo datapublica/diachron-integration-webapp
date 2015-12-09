@@ -36,14 +36,8 @@
                         <h4>Changes since the previous version</h4>
 
                         <div class="section-container">
-
-                            Summary of changes
-                            <ul>
-                                <li ng-repeat="(type, changes) in Home.changes">{{type}} : {{changes.length}}</li>
-                            </ul>
-
-                            <div ng-if="Home.CodelistChanges">
-                            </div>
+                            {{Home.changes.total}} changes detected since last versions.
+                            <a ui-sref="changes({dataset: Home.selectedItem.uri})">Explore</a>
                         </div>
                     </div>
 

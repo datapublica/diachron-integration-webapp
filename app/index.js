@@ -7,10 +7,17 @@ if(ON_TEST){
 require('angular-material/angular-material.css');
 require('./variables.styl');
 
+//require('highcharts/lib/adapters/standalone-framework');
+//require('highcharts-commonjs');
+//require('highcharts/lib/highcharts.src');
+//require('highcharts/lib/highcharts-more');
+//require('highcharts/lib/modules/exporting');
+
 const ngModule = angular.module('diachron', [
 	require('ui-router/release/angular-ui-router'),
 	require('angular-material'),
 	require('./modules/home'),
+	require('./modules/changes'),
 	require('./modules/navbar'),
 	'ngLocale'
 ])

@@ -1,0 +1,33 @@
+<div class="changes">
+    <div class="changes-container">
+        <div layout="row">
+
+            <div class="filter-column">
+                <div>
+                    <highchart id="typeChart" config="Changes.typeChartConfig"></highchart>
+                </div>
+
+                <div>
+
+                </div>
+
+
+            </div>
+
+            <div class="content-column" flex="1">
+                <div class="content-container">
+                    <h3></h3>
+
+                    <div ng-repeat="item in Changes.changes.data">
+                        <p>{{item.type}}</p>
+                        <ul>
+                            <li ng-repeat="(k, v) in item.properties">{{k}} : {{v}}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
