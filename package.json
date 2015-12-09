@@ -1,5 +1,5 @@
 {
-  "name": "diachron-integration-webapp",
+  "name": "diachron-dataprovider-webapp",
   "version": "1.0.0",
   "description": "Web interface for diachron integration",
   "main": "app/index.js",
