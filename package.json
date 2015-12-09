@@ -39,7 +39,7 @@
   "scripts": {
     "test": "NODE_ENV=test karma start",
     "start": "node node_modules/.bin/webpack-dev-server --inline --content-base app",
-    "build": " rm -rf dist/* && NODE_ENV=production node node_modules/.bin/webpack && cp app/index.html dist/index.html && cp app/robots.txt dist/robots.txt && cp -r app/assets dist"
+    "build": " rm -rf dist/* && NODE_ENV=production node node_modules/.bin/webpack && cp app/index.html dist/index.html && cp -r app/assets dist"
   },
   "author": "Data Publica",
   "license": "ISC"
