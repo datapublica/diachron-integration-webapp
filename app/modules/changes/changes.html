@@ -21,7 +21,7 @@
                 <div class="content-container">
                     <h3></h3>
 
-                    <div ng-repeat="item in Changes.changes.data" class="change-item">
+                    <div ng-repeat="item in Changes.changes.results" class="change-item">
                         <p>{{item.type}}</p>
                         <ul>
                             <li ng-repeat="(k, v) in item.properties">{{k}} : {{v}}</li>

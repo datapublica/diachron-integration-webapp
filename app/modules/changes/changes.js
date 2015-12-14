@@ -45,6 +45,7 @@ export default class ChangesController {
 				enabled: false
 			},
 			tooltip: {
+				enabled: false,
 				style: {
 					padding: 10,
 					fontWeight: 'bold'
@@ -109,7 +110,7 @@ export default class ChangesController {
 		}
 
 		ctrl.typeChartConfig =
-			createChart("type", toList(changes.facets.type), filterChartConfig, "Change types");
+			createChart("type", toList(changes.facets.types), filterChartConfig, "Change types");
 		ctrl.measureChartConfig =
 			createChart("measure", toList(changes.facets.measure), filterChartConfig, "Impacted measures");
 		ctrl.dimensionChartConfig =

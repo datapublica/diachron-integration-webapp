@@ -5,9 +5,9 @@ class Changes {
 
     search(dataset, from, to, filter, offset, limit) {
         filter = filter || {};
-        return this.http.get('/api/changes/' + dataset, { params: angular.extend({
-            fromVersion: from,
-            toVersion: to,
+        return this.http.post('/api/meta/changes/' + dataset, filter, { params: angular.extend({
+//            fromVersion: from,
+//            toVersion: to,
             offset: offset,
             limit: limit
         }, filter)}).then(response => response.data);
