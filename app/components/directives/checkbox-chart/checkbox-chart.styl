@@ -1,0 +1,41 @@
+@require '../../../variables.styl'
+
+.checkbox-chart
+  position  relative
+  .checkboxes
+    position absolute
+    left -60px
+    top -12px
+    ul
+      list-style none
+      margin-top 13px
+      li
+        margin-bottom 8px
+        padding-right 10px
+        .checkbox-icon
+          margin-right -5px
+          vertical-align middle
+
+        .fa
+          color $color-secondary
+
+  .chart
+    .bar
+      cursor pointer
+      fill $color-secondary-hover
+      &.hover
+        fill rgba(41, 43, 51, 0.7)
+    .count
+      font-weight bold
+      cursor pointer
+      fill: white
+      &:not(.type)
+        fill black
+
+      &.outside
+        fill $color-secondary
+
+      tspan
+        &.small
+          font-size 0.7em
+          fill #5A5A5A

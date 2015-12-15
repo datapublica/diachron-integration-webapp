@@ -81,39 +81,58 @@ export default class ChangesController {
 
 		function createChart(attr, facetItems, config, title) {
 
-			return angular.merge({
-				title: {
-					text: title
-				},
-				series: [{
-					name: "occurences",
-					data: facetItems.map(f => f.value)
-				}],
-				xAxis: {
-					categories: facetItems.map(f => f.key)
-				},
-				plotOptions: {
-					series: {
-						point: {
-							events: {
-								click: function() {
-									toggleFilter.apply(this, [attr]);
+			if (facetItems && facetItems.length) {
+				return angular.merge({
+					title: {
+						text: title
+					},
+					series: [{
+						name: "occurences",
+						data: facetItems.map(f => f.value)
+					}],
+					xAxis: {
+						categories: facetItems.map(f => f.key)
+//							.map(s => s.replace("http://www.data-publica.com/lod/publication/", ""))
+					},
+					plotOptions: {
+						series: {
+							point: {
+								events: {
+									click: function () {
+										toggleFilter.apply(this, [attr]);
+									}
 								}
 							}
+						},
+						bar: {
+							pointWidth: 20
 						}
-					},
-					bar: {
-						pointWidth: 20
 					}
-				}
-			}, config);
+				}, config);
+			} else return null;
 		}
 
 		ctrl.typeChartConfig =
 			createChart("type", toList(changes.facets.types), filterChartConfig, "Change types");
+
 		ctrl.measureChartConfig =
-			createChart("measure", toList(changes.facets.measure), filterChartConfig, "Impacted measures");
+			createChart("measure", toList(changes.facets.parameters && changes.facets.parameters.measure),
+				filterChartConfig, "Impacted measures");
+
 		ctrl.dimensionChartConfig =
-			createChart("dimension", toList(changes.facets.dimension), filterChartConfig, "Impacted dimensions");
+			createChart("dimension", toList(changes.facets.parameters && changes.facets.parameters.dimension),
+				filterChartConfig, "Impacted dimensions");
+
+		ctrl.measureValueChartConfig =
+			createChart("measure_val", toList(changes.facets.parameters && changes.facets.parameters.measure_val),
+				filterChartConfig, "Impacted measures values");
+
+		ctrl.propertyChartConfig =
+			createChart("property", toList(changes.facets.parameters && changes.facets.parameters.property),
+				filterChartConfig, "Impacted properties");
+
+		ctrl.valueChartConfig =
+			createChart("value", toList(changes.facets.parameters && changes.facets.parameters.value),
+				filterChartConfig, "Impacted values");
 	}
 }

@@ -7,12 +7,24 @@
                     <highchart id="typeChart" config="Changes.typeChartConfig"></highchart>
                 </div>
 
-                <div>
+                <div ng-if="Changes.measureChartConfig">
                     <highchart id="measureChart" config="Changes.measureChartConfig"></highchart>
                 </div>
 
-                <div>
+                <div ng-if="Changes.dimensionChartConfig">
                     <highchart id="dimensionChart" config="Changes.dimensionChartConfig"></highchart>
+                </div>
+
+                <div ng-if="Changes.measureValueChartConfig">
+                    <highchart id="measureValueChart" config="Changes.measureValueChartConfig"></highchart>
+                </div>
+
+                <div ng-if="Changes.propertyChartConfig">
+                    <highchart id="propertyChart" config="Changes.propertyChartConfig"></highchart>
+                </div>
+
+                <div ng-if="Changes.valueChartConfig">
+                    <highchart id="valueChart" config="Changes.valueChartConfig"></highchart>
                 </div>
 
             </div>

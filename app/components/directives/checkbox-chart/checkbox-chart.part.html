@@ -1,0 +1,11 @@
+<div class="checkbox-chart">
+    <div class="checkboxes">
+        <ul>
+            <li ng-repeat="filter in dataset" ng-click="selectFilter(filter)">
+                <i class="fa fa-fw checkbox-icon"
+                   ng-class="{'fa-square-o':(!filter.checked && squareBox),'fa-check-square':(filter.checked && squareBox), 'fa-circle-o':(!filter.checked && !squareBox),'fa-dot-circle-o':(filter.checked && !squareBox)}"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="chart"></div>
+</div>
