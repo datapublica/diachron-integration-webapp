@@ -1,10 +1,7 @@
-(function () {
-    "use strict";
+export default ngModule => {
+    require('./checkbox-chart.styl');
 
-    var app = angular.module('acolad');
-
-    app.directive('checkboxChart', function () {
-        require('./checkbox-chart.styl');
+    ngModule.directive('checkboxChart', () => {
         return {
             scope: {
                 config: '=',
@@ -23,12 +20,18 @@
                     }
                     angular.forEach(scope.config.chartData.bins, function (value) {
                         if (scope.config.select
-                                .filter(function(el) { return typeof el === 'string'})
-                                .map(function(el) {return el.toLowerCase();})
+                                .filter(function (el) {
+                                    return typeof el === 'string'
+                                })
+                                .map(function (el) {
+                                    return el.toLowerCase();
+                                })
                                 .indexOf(value.key.toLowerCase()) < 0) {
                             return;
                         }
-                        if (scope.config.selectedFilters.map(function(el) { return el.toLowerCase(); }).indexOf(value.key.toLowerCase()) > -1) {
+                        if (scope.config.selectedFilters.map(function (el) {
+                                return el.toLowerCase();
+                            }).indexOf(value.key.toLowerCase()) > -1) {
                             //filter is selected, checking the box
                             value.checked = true;
                         }
@@ -41,13 +44,14 @@
                     scope.onCheck({data: filter});
                 };
 
-				var maxLabelLength = 19;
-				function truncateLabel(label) {
-					if (label && label.length > maxLabelLength) {
-						label = label.substr(0, maxLabelLength) + "..."
-					}
-					return label;
-				}
+                var maxLabelLength = 109;
+
+                function truncateLabel(label) {
+                    if (label && label.length > maxLabelLength) {
+                        label = label.substr(0, maxLabelLength) + "..."
+                    }
+                    return label;
+                }
 
                 // d3 chart
 
@@ -65,18 +69,18 @@
                         right: 15
                     };
 
-                    var w = 220, h = (barHeight+5) * dataset.length;
+                    var w = 420, h = (barHeight + 5) * dataset.length;
 
-					/* Initialize tooltip */
-					var tip = d3.tip()
-						.attr('class', 'd3-tip blue ' + scope.config.id)
-						.direction('e')
-						.offset([0, 16])
-						.html(function (d) {
-							return d.label;
-						});
+                    /* Initialize tooltip */
+                    var tip = d3.tip()
+                        .attr('class', 'd3-tip blue ' + scope.config.id)
+                        .direction('e')
+                        .offset([0, 16])
+                        .html(function (d) {
+                            return d.label;
+                        });
 
-					var xScale = d3.scale.linear()
+                    var xScale = d3.scale.linear()
                         .domain([0, d3.max(dataset, function (d) {
                             return d.count;
                         }) * 1.1])
@@ -88,9 +92,9 @@
 
                     svg.selectAll("*").remove();
 
-					svg.call(tip);
+                    svg.call(tip);
 
-					var container = svg.selectAll(".data").data(dataset).enter();
+                    var container = svg.selectAll(".data").data(dataset).enter();
 
                     var bars = container
                         .append('rect')
@@ -133,12 +137,12 @@
                     // To display the count. we need another svg element for styling purpose
                     labelText.append('tspan')
                         .text(function (d) {
-                            return d.count > 0 ? d3.format(",")(d.count) + '  ' : '';
+                            return d.count > 0 ? d3.format(",")(d.count) + ' ' : '';
                         })
                         .classed('small', true);
                     labelText.append('tspan')
                         .text(function (d) {
-                            return (truncateLabel(d.label) || d.key) + " ";
+                            return (truncateLabel(d.label) || d.key);
                         });
 
                     // we need transparent rect container on top of the bars and labels to bind the d3-tip (g won't work, and binding on text breaks on FF)
@@ -150,7 +154,7 @@
                             return i * (barHeight + 5);
                         })
                         .attr('height', barHeight)
-                        .attr('width', w - margin.right-10)
+                        .attr('width', w - margin.right - 10)
                         .style('opacity', 0)
                         .style('cursor', 'pointer')
                         // Bar selection and tooltip manipulation
@@ -178,7 +182,7 @@
 
                 var svg;
 
-                scope.$watch("config.chartData.bins", function() {
+                scope.$watch("config.chartData.bins", function () {
                     scope.dataset = scope.config.chartData.bins;
                     if (svg) svg.remove();
                     svg = draw(scope.dataset);
@@ -186,4 +190,4 @@
             }
         };
     });
-})();
+};

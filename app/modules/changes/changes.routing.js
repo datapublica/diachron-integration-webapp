@@ -1,7 +1,7 @@
 export default ($stateProvider) => {
     $stateProvider
         .state('changes', {
-            url: '/changes/{dataset}?from&to&type&measure&dimension&offset&limit&property&measure_val&value',
+            url: '/changes/{dataset}?from&to&offset&limit&types&measure&dimension&property&measure_val&value',
             views: {
                 "@": {
                     template: require('./changes.html'),
@@ -18,8 +18,8 @@ export default ($stateProvider) => {
                     return Metadata.get($stateParams.dataset);
                 },
                 changes: ($stateParams, Changes) => {
-                    return Changes.search($stateParams.dataset, "0", "1", {
-                        type: $stateParams.type,
+                    return Changes.search($stateParams.dataset, $stateParams.from, $stateParams.to, {
+                        types: $stateParams.types,
                         measure: $stateParams.measure,
                         measure_val: $stateParams.measure_val,
                         dimension: $stateParams.dimension,

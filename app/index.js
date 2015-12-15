@@ -12,6 +12,11 @@ require('./variables.styl');
 //require('highcharts/lib/highcharts.src');
 //require('highcharts/lib/highcharts-more');
 //require('highcharts/lib/modules/exporting');
+require("font-awesome-webpack");
+
+import d3 from "d3";
+import d3Tip from "d3-tip";
+d3.tip = d3Tip;
 
 const ngModule = angular.module('diachron', [
 	require('ui-router/release/angular-ui-router'),

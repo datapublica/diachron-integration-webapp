@@ -3,46 +3,94 @@
         <div layout="row">
 
             <div class="filter-column">
-                <div>
-                    <highchart id="typeChart" config="Changes.typeChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.types">
+                    <h4>Change Types</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.types"
+                         id="checkbox-chart-types"
+                         on-check="Changes.filter(data)"></div>
                 </div>
 
-                <div ng-if="Changes.measureChartConfig">
-                    <highchart id="measureChart" config="Changes.measureChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.measure">
+                    <h4>Measures</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.measure"
+                         id="checkbox-chart-measure"
+                         on-check="Changes.filter(data)"></div>
                 </div>
 
-                <div ng-if="Changes.dimensionChartConfig">
-                    <highchart id="dimensionChart" config="Changes.dimensionChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.dimension">
+                    <h4>Dimensions</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.dimension"
+                         id="checkbox-chart-dimension"
+                         on-check="Changes.filter(data)"></div>
                 </div>
 
-                <div ng-if="Changes.measureValueChartConfig">
-                    <highchart id="measureValueChart" config="Changes.measureValueChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.measure_val">
+                    <h4>Measures values</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.measure_val"
+                         id="checkbox-chart-measure_val"
+                         on-check="Changes.filter(data)"></div>
                 </div>
 
-                <div ng-if="Changes.propertyChartConfig">
-                    <highchart id="propertyChart" config="Changes.propertyChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.property">
+                    <h4>Properties</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.property"
+                         id="checkbox-chart-property"
+                         on-check="Changes.filter(data)"></div>
                 </div>
 
-                <div ng-if="Changes.valueChartConfig">
-                    <highchart id="valueChart" config="Changes.valueChartConfig"></highchart>
+                <div ng-if="Changes.changes.facets.value">
+                    <h4>Values</h4>
+
+                    <div checkbox-chart
+                         config="Changes.checkboxChart.value"
+                         id="checkbox-chart-value"
+                         on-check="Changes.filter(data)"></div>
+                </div>
+
+                <div class="btn-reset">
+                    <md-button class="md-raised" ng-click="Changes.reset()">Réinitialiser</md-button>
                 </div>
 
             </div>
 
-            <div class="content-column" flex="1">
+            <div class="content-column" flex>
                 <div class="content-container">
                     <h3></h3>
 
-                    <div ng-repeat="item in Changes.changes.results" class="change-item">
-                        <p>{{item.type}}</p>
-                        <ul>
-                            <li ng-repeat="(k, v) in item.properties">{{k}} : {{v}}</li>
-                        </ul>
+                    <div class="header" layout="row">
+                        <div ng-repeat="item in Changes.changes.headers" flex>{{item}}</div>
                     </div>
+                    <!--
+                    <div dir-paginate="item in Changes.changes.data | itemsPerPage: 20"
+                         total-items="Changes.changes.total" pagination-id="changelist"
+                         current-page="Changes.changes.currentPage" layout="row">
+                         -->
+                    <div ng-repeat="item in Changes.changes.data" layout="row" class="change-item">
+                        <div flex ng-repeat="v in item">{{v}}</div>
+                    </div>
+
+                    <!--
+                    <md-table headers="Changes.changes.headers" content="Changes.changes.data"></md-table>
+                         -->
+
+                   <dir-pagination-controls  pagination-id="changelist"
+                        on-page-change="Changes.paginate({pageNumber: Changes.changes.currentPage})"></dir-pagination-controls>
+
 
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </div>
