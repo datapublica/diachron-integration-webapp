@@ -161,20 +161,20 @@ export default ngModule => {
                         .on('click', function (d) {
                             scope.selectFilter(d);
                             scope.$apply(); //outside angular so digest cycle needed
-                            tip.hide(d);
+                            //tip.hide(d);
                         })
                         .on('mouseover', function (d) {
                             bars.classed('hover', function (bar) {
                                 //adding the hover class to the right bar when hovering the text
                                 return d === bar || bar.checked;
                             });
-                            if (d.label) tip.show(d);
+                            //if (d.label) tip.show(d);
                         })
                         .on('mouseout', function (d) {
                             bars.classed('hover', function (d) {
                                 return d.checked;
                             }); // we just remove the hover class from the non selected bars
-                            tip.hide(d);
+                            //tip.hide(d);
                         });
 
                     return svg;

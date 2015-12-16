@@ -5,6 +5,8 @@ export default class ChangesController {
 		ctrl.checkboxChart = {};
 
 		ctrl.changes = processChanges(changes);
+		ctrl.selections = {};
+		angular.forEach($location.search(), (value, param) => ctrl.selections[param] = value);
 
 		ctrl.search = (item, version) => {
 
@@ -252,17 +254,26 @@ export default class ChangesController {
 					checkedParam.push(filter.key);
 				}
 				*/
+				ctrl.selections[filter.urlParam] = null;
 				$location.search(filter.urlParam, filter.key);
 			} else {
+				ctrl.selections[filter.urlParam] = filter.key;
 				$location.search(filter.urlParam, filter.key);
 			}
 		};
 
-		ctrl.reset = function () {
+		ctrl.reset = function (p) {
 			var params = $location.search();
-			for(var param in params){
-				if (param !== 'q'){
-					delete params[param];
+			if (p) {
+				if (typeof p === 'string') {
+					p = [p];
+				}
+				p.forEach(s => delete params[s])
+			} else {
+				for (var param in params) {
+					if (param !== 'q') {
+						delete params[param];
+					}
 				}
 			}
 			$location.search(params);

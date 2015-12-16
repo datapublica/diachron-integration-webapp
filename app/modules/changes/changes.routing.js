@@ -1,7 +1,7 @@
 export default ($stateProvider) => {
     $stateProvider
         .state('changes', {
-            url: '/changes/{dataset}?from&to&offset&limit&types&measure&dimension&property&measure_val&value',
+            url: '/changes/{dataset}?from&to&offset&limit&types&joinTypes&measure&dimension&property&measure_val&value',
             views: {
                 "@": {
                     template: require('./changes.html'),
@@ -17,7 +17,8 @@ export default ($stateProvider) => {
                 dataset: ($stateParams, Metadata) => {
                     return Metadata.get($stateParams.dataset);
                 },
-                changes: ($stateParams, Changes) => {
+                changes: ($stateParams, $rootScope, Changes) => {
+                    $rootScope.loading = true;
                     return Changes.search($stateParams.dataset, $stateParams.from, $stateParams.to, {
                         types: $stateParams.types,
                         measure: $stateParams.measure,
@@ -25,7 +26,8 @@ export default ($stateProvider) => {
                         dimension: $stateParams.dimension,
                         property: $stateParams.property,
                         value: $stateParams.value
-                    }, $stateParams.offset, $stateParams.limit);
+                    }, $stateParams.offset, $stateParams.limit)
+                        .finally(() => $rootScope.loading = false);
                 }
 
 			}

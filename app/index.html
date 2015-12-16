@@ -11,5 +11,8 @@
         <div ui-view="navbar"></div>
         <div ui-view></div>
         <script src="bundle.js"></script>
+        <div class="state-loading" ng-show="loading">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
     </body>
 </html>
