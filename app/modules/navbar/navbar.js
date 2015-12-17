@@ -1,4 +1,5 @@
 export default class NavbarController {
-    constructor() {
+    constructor($scope) {
+        $scope.logo = require("../../assets/img/logo.png");
     }
 }

@@ -3,9 +3,9 @@ class Changes {
         this.http = $http;
     }
 
-    search(dataset, from, to, filter, offset, limit) {
+    search(dataset, db, from, to, filter, offset, limit) {
         filter = filter || {};
-        return this.http.post('/api/meta/changes/' + dataset, filter, { params: {
+        return this.http.post('/api/changes/' + dataset + '/' + db, filter, { params: {
 //            fromVersion: from,
 //            toVersion: to,
             p: offset,

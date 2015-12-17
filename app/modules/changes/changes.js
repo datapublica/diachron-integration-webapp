@@ -1,5 +1,5 @@
 export default class ChangesController {
-    constructor(dataset, changes, $location, $scope) {
+    constructor(dataset, changes, db, $location, $scope, $state) {
 		var ctrl = this;
 		ctrl.dataset = dataset;
 		ctrl.checkboxChart = {};
@@ -8,7 +8,9 @@ export default class ChangesController {
 		ctrl.selections = {};
 		angular.forEach($location.search(), (value, param) => ctrl.selections[param] = value);
 
-		ctrl.search = (item, version) => {
+		ctrl.db = db;
+
+		ctrl.search = (item, db, version) => {
 
 			if (ctrl.selectedVersion) {
 				ctrl.selectedVersion.selected = false;
@@ -21,7 +23,7 @@ export default class ChangesController {
 			ctrl.selectedItem = item;
 
 			// get version details
-			Changes.get(item.uri, version.id - 1, version.id).then(changes => {
+			Changes.get(item.uri, db, version.id - 1, version.id).then(changes => {
 				changes.facets = flattenFacets(changes.facets);
 				ctrl.changes = processChanges(changes);
 			})
@@ -289,6 +291,13 @@ export default class ChangesController {
 		ctrl.paginate = function(pageNumber) {
 
 		};
+
+		ctrl.selectDB = function() {
+			$state.go('changes', {
+				dataset: ctrl.dataset.name,
+				db: ctrl.db
+			});
+		}
 
 	}
 }

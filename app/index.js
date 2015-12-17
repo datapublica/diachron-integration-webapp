@@ -4,6 +4,8 @@ if(ON_TEST){
     require('angular-mocks/angular-mocks');
 }
 
+require('file?name=favicon.ico!./assets/img/favicon.ico');
+
 require('angular-material/angular-material.css');
 require('./variables.styl');
 

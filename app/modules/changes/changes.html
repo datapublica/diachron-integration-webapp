@@ -1,5 +1,18 @@
 <div class="changes">
     <div class="changes-container">
+
+        <div class="dataset=selector">
+            <md-radio-group ng-model="Changes.db" ng-change="Changes.selectDB()">
+
+            <md-radio-button ng-value="'data'" aria-label="Data changes">
+                Data changes
+            </md-radio-button>
+            <md-radio-button ng-value="'meta'" aria-label="Schema changes">
+                Schema changes
+            </md-radio-button>
+                </md-radio-group>
+        </div>
+
         <div layout="row">
 
             <div class="filter-column">
@@ -39,7 +52,7 @@
                          id="checkbox-chart-measure"
                          on-check="Changes.filter(data)"></div>
 
-                    <div class="btn-reset">
+                    <div class="btn-reset" ng-if="Changes.selections.measure">
                         <md-button class="md-raised" ng-click="Changes.reset(['measure', 'measure-val'])">Réinitialiser</md-button>
                     </div>
                 </div>
@@ -53,7 +66,7 @@
                          id="checkbox-chart-dimension"
                          on-check="Changes.filter(data)"></div>
 
-                    <div class="btn-reset">
+                    <div class="btn-reset" ng-if="Changes.selections.dimension">
                         <md-button class="md-raised" ng-click="Changes.reset('dimension')">Réinitialiser</md-button>
                     </div>
                 </div>
@@ -67,7 +80,7 @@
                          id="checkbox-chart-measure_val"
                          on-check="Changes.filter(data)"></div>
 
-                    <div class="btn-reset">
+                    <div class="btn-reset"  ng-if="Changes.selections.measure_val">
                         <md-button class="md-raised" ng-click="Changes.reset('measure_val')">Réinitialiser</md-button>
                     </div>
                 </div>
@@ -80,7 +93,8 @@
                          config="Changes.checkboxChart.property"
                          id="checkbox-chart-property"
                          on-check="Changes.filter(data)"></div>
-                    <div class="btn-reset">
+
+                    <div class="btn-reset" ng-if="Changes.selections.property">
                         <md-button class="md-raised" ng-click="Changes.reset(['property', 'value'])">Réinitialiser</md-button>
                     </div>
                 </div>
