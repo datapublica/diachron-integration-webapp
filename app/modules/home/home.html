@@ -1,12 +1,15 @@
 <div class="homepage">
     <div class="homepage-container">
         <div layout="row">
-            <div class="index-column secondary" flex="25">
+            <div class="index-column" flex="25">
                 <div ng-repeat="item in Home.datasets">
                     <div ng-click="Home.toggle(item)" class="active item">
-                        {{item.name}}
+                        <i class="fa fa-caret-down" ng-if="item.expanded"></i>
+                        <i class="fa fa-caret-right" ng-if="!item.expanded"></i>
+                        <strong>{{item.name}}</strong>
                     </div>
-                    <div ng-repeat="version in item.versions" ng-if="item.expanded" class="version active"
+                    <div ng-repeat="version in item.versions" ng-if="item.expanded"
+                         class="version active"
                          ng-class="{'selected':version.selected}"
                          ng-click="Home.selectVersion(item, version)">
                         {{version.name}} {{version.date | date}}
@@ -15,17 +18,21 @@
             </div>
             <div class="content-column" flex="75">
                 <div class="content-container" ng-if="Home.selectedVersion">
-                    <h3>{{Home.selectedItem.name}} / {{Home.selectedVersion.uri}}</h3>
+                    <h3>{{Home.selectedItem.name}} / {{Home.selectedVersion.date | date}}</h3>
 
                     <div class="section">
                         <h4>Structure</h4>
 
                         <div class="section-container">
+                            Dimensions
                             <ul>
-                                <li ng-repeat="item in Home.selectedVersion.dimensions" class="dimension">{{item.label}}
+                                <li ng-repeat="item in Home.selectedVersion.dimensions" class="dimension">{{item.uri}}
                                     ({{item.type}})
                                 </li>
-                                <li ng-repeat="item in Home.selectedVersion.measures" class="measure">{{item.label}}
+                            </ul>
+                            Measures
+                            <ul>
+                                <li ng-repeat="item in Home.selectedVersion.measures" class="measure">{{item.uri}}
                                     ({{item.type}})
                                 </li>
                             </ul>

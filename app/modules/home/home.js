@@ -9,10 +9,8 @@ export default class HomeController {
 			if (ctrl.selectedVersion) {
 				ctrl.selectedVersion.selected = false;
 			}
-			if (ctrl.selectedItem) {
-				ctrl.selectedItem.selected = false;
-			}
 			version.selected = true;
+
 			ctrl.selectedVersion = version;
 			ctrl.selectedItem = item;
 

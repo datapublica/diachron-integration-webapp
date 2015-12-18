@@ -1,16 +1,20 @@
 <div class="changes">
     <div class="changes-container">
 
-        <div class="dataset=selector">
-            <md-radio-group ng-model="Changes.db" ng-change="Changes.selectDB()">
-
-            <md-radio-button ng-value="'data'" aria-label="Data changes">
-                Data changes
-            </md-radio-button>
-            <md-radio-button ng-value="'meta'" aria-label="Schema changes">
-                Schema changes
-            </md-radio-button>
+        <div layout="row" class="summary">
+            <div flex class="title">
+                Before <i class="fa fa-arrow-right"></i> After
+            </div>
+            <div class="dataset-selector">
+                <md-radio-group ng-model="Changes.db" ng-change="Changes.selectDB()">
+                    <md-radio-button ng-value="'data'" aria-label="Data changes">
+                        Data changes
+                    </md-radio-button>
+                    <md-radio-button ng-value="'meta'" aria-label="Schema changes">
+                        Schema changes
+                    </md-radio-button>
                 </md-radio-group>
+            </div>
         </div>
 
         <div layout="row">
@@ -18,34 +22,40 @@
             <div class="filter-column">
                 <div ng-if="Changes.changes.facets.types" class="filter-chart">
                     <h4>Change Types</h4>
+
                     <p class="subtitle" ng-if="!Changes.selections.types">Click on a bar to explore a change type</p>
+
                     <div checkbox-chart
                          config="Changes.checkboxChart.types"
                          id="checkbox-chart-types"
                          on-check="Changes.filter(data)" on-delete="Changes.deleteType(data)"></div>
 
                     <div class="btn-reset">
-                        <md-button class="md-raised" ng-click="Changes.reset()">Réinitialiser</md-button>
+                        <md-button class="md-raised" ng-click="Changes.reset()">Reset</md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.joinTypes" class="filter-chart">
                     <h4>Related changes, by type</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.joinTypes">Click on a bar to reduce result set to subjects of 2 change types</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.joinTypes">Click on a bar to reduce result set to
+                        subjects of 2 change types</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.joinTypes"
                          id="checkbox-chart-joinTypes"
                          on-check="Changes.filter(data)" on-delete="Changes.deleteType(data)"></div>
 
-                    <div>
-                        <md-button class="md-raised" ng-click="Changes.reset('joinTypes')">Réinitialiser</md-button>
+                    <div class="btn-reset">
+                        <md-button class="md-raised" ng-click="Changes.reset('joinTypes')">Reset</md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.measure" class="filter-chart">
                     <h4>Measures</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.measure">Click on a bar to reduce result set to changes affecting a particular measure</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.measure">Click on a bar to reduce result set to
+                        changes affecting a particular measure</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.measure"
@@ -53,13 +63,17 @@
                          on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.measure">
-                        <md-button class="md-raised" ng-click="Changes.reset(['measure', 'measure-val'])">Réinitialiser</md-button>
+                        <md-button class="md-raised" ng-click="Changes.reset(['measure', 'measure-val'])">
+                            Reset
+                        </md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.dimension" class="filter-chart">
                     <h4>Dimensions</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.dimension">Click on a bar to reduce result set to changes affecting a particular dimension</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.dimension">Click on a bar to reduce result set to
+                        changes affecting a particular dimension</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.dimension"
@@ -67,27 +81,31 @@
                          on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.dimension">
-                        <md-button class="md-raised" ng-click="Changes.reset('dimension')">Réinitialiser</md-button>
+                        <md-button class="md-raised" ng-click="Changes.reset('dimension')">Reset</md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.measure_val && Changes.selections.measure" class="filter-chart">
                     <h4>Measures values</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.measure_val">Click on a bar to reduce result set to changes affecting a particular measure value</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.measure_val">Click on a bar to reduce result set to
+                        changes affecting a particular measure value</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.measure_val"
                          id="checkbox-chart-measure_val"
                          on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
-                    <div class="btn-reset"  ng-if="Changes.selections.measure_val">
-                        <md-button class="md-raised" ng-click="Changes.reset('measure_val')">Réinitialiser</md-button>
+                    <div class="btn-reset" ng-if="Changes.selections.measure_val">
+                        <md-button class="md-raised" ng-click="Changes.reset('measure_val')">Reset</md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.property" class="filter-chart">
                     <h4>Properties</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.property">Click on a bar to reduce result set to changes affecting a particular property</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.property">Click on a bar to reduce result set to
+                        changes affecting a particular property</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.property"
@@ -95,13 +113,15 @@
                          on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.property">
-                        <md-button class="md-raised" ng-click="Changes.reset(['property', 'value'])">Réinitialiser</md-button>
+                        <md-button class="md-raised" ng-click="Changes.reset(['property', 'value'])">Reset</md-button>
                     </div>
                 </div>
 
                 <div ng-if="Changes.changes.facets.value && Changes.selections.property" class="filter-chart">
                     <h4>Values</h4>
-                    <p class="subtitle" ng-if="!Changes.selections.value">Click on a bar to reduce result set to changes affecting a particular property value</p>
+
+                    <p class="subtitle" ng-if="!Changes.selections.value">Click on a bar to reduce result set to changes
+                        affecting a particular property value</p>
 
                     <div checkbox-chart
                          config="Changes.checkboxChart.value"
@@ -109,7 +129,7 @@
                          on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.value">
-                        <md-button class="md-raised" ng-click="Changes.reset('value')">Réinitialiser</md-button>
+                        <md-button class="md-raised" ng-click="Changes.reset('value')">Reset</md-button>
                     </div>
                 </div>
 
@@ -136,8 +156,8 @@
                     <md-table headers="Changes.changes.headers" content="Changes.changes.data"></md-table>
                          -->
 
-                   <dir-pagination-controls  pagination-id="changelist"
-                        on-page-change="Changes.paginate({pageNumber: Changes.changes.currentPage})"></dir-pagination-controls>
+                    <dir-pagination-controls pagination-id="changelist"
+                                             on-page-change="Changes.paginate({pageNumber: Changes.changes.currentPage})"></dir-pagination-controls>
 
 
                 </div>

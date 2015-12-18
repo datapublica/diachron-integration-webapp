@@ -24,7 +24,6 @@ export default class ChangesController {
 				ctrl.changes = processChanges(changes);
 				$timeout(() => $scope.$apply(), 100);
 			});
-
 		};
 
 		function processChanges(changes) {
