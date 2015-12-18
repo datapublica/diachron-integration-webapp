@@ -22,6 +22,7 @@ export default ($stateProvider) => {
                     $rootScope.loading = true;
                     return Changes.search($stateParams.dataset, $stateParams.db, $stateParams.from, $stateParams.to, {
                         types: $stateParams.types,
+                        joinTypes: $stateParams.joinTypes,
                         measure: $stateParams.measure,
                         measure_val: $stateParams.measure_val,
                         dimension: $stateParams.dimension,
