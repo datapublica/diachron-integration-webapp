@@ -1,5 +1,5 @@
 export default class ChangesController {
-    constructor(dataset, changes, db, $location, $scope, $state) {
+    constructor(dataset, changes, db, $location, $scope, $state, $mdDialog, $timeout, Changes) {
 		var ctrl = this;
 		ctrl.dataset = dataset;
 		ctrl.checkboxChart = {};
@@ -10,23 +10,20 @@ export default class ChangesController {
 
 		ctrl.db = db;
 
-		ctrl.search = (item, db, version) => {
-
-			if (ctrl.selectedVersion) {
-				ctrl.selectedVersion.selected = false;
-			}
-			if (ctrl.selectedItem) {
-				ctrl.selectedItem.selected = false;
-			}
-			version.selected = true;
-			ctrl.selectedVersion = version;
-			ctrl.selectedItem = item;
+		function refresh() {
+			var params = $location.search();
+			var filter = {};
+			angular.forEach(params, (value, key) => {
+				if (['from', 'to', 'offset', 'limit'].indexOf(key) < 0) {
+					filter[key] = value;
+				}
+			});
 
 			// get version details
-			Changes.get(item.uri, db, version.id - 1, version.id).then(changes => {
-				changes.facets = flattenFacets(changes.facets);
+			Changes.search(dataset.name, ctrl.db, params.from, params.to, filter, params.offset, params.limit).then(changes => {
 				ctrl.changes = processChanges(changes);
-			})
+				$timeout(() => $scope.$apply(), 100);
+			});
 
 		};
 
@@ -41,7 +38,7 @@ export default class ChangesController {
 				changes.data = changes.results.map(el => {
 					var row = [];
 					changes.headers.forEach(h => {
-						row.push(heuristicLabel(el.properties[h]));
+						row.push(getLabel(el.properties[h]));
 					});
 					return row;
 				});
@@ -67,7 +64,6 @@ export default class ChangesController {
 			$location.search(attr, values);
 			$scope.$apply();
 		}
-
 
 		var filterChartConfig = {
 			chart: {
@@ -168,12 +164,16 @@ export default class ChangesController {
 			createChart("value", toList(changes.facets.parameters && changes.facets.parameters.value),
 				filterChartConfig, "Impacted values");
 
-		function heuristicLabel(key) {
+		function getLabel(key) {
 			if (!key) return key;
+
+			var resolved = (ctrl.changes || changes).resolved[key];
+			var label = (resolved && resolved.after && resolved.after.label) || (resolved && resolved.before && resolved.before.label);
+			if (label) return label;
 
 			// remove url
 			var spl = key.split(/\//);
-			var label = spl[spl.length - 1];
+			label = spl[spl.length - 1];
 
 			// types
 			label = label.toLowerCase().replace(/_/g, " ");
@@ -188,7 +188,7 @@ export default class ChangesController {
 			angular.forEach(facets, (value, key) => bins.push({
 				key: key,
 				count: value,
-				label: (dic && dic[key]) || heuristicLabel(key) || key
+				label: (dic && dic[key]) || getLabel(key) || key
 			}));
 			return truncateTo ? bins.slice(0, truncateTo) : bins;
 		}
@@ -249,19 +249,46 @@ export default class ChangesController {
 			var params = $location.search();
 			if (angular.isDefined(params[filter.urlParam])) {
 				/*
-				var checkedParam = [].concat(params[filter.urlParam]);
-				if (checkedParam.indexOf(filter.key) > -1) {
-					checkedParam.splice(checkedParam.indexOf(filter.key), 1);
-				} else {
-					checkedParam.push(filter.key);
-				}
-				*/
+				 var checkedParam = [].concat(params[filter.urlParam]);
+				 if (checkedParam.indexOf(filter.key) > -1) {
+				 checkedParam.splice(checkedParam.indexOf(filter.key), 1);
+				 } else {
+				 checkedParam.push(filter.key);
+				 }
+				 */
 				ctrl.selections[filter.urlParam] = null;
 				$location.search(filter.urlParam, filter.key);
 			} else {
 				ctrl.selections[filter.urlParam] = filter.key;
 				$location.search(filter.urlParam, filter.key);
 			}
+		};
+
+		ctrl.deleteFilter = function (filter) {
+			delete ctrl.changes.facets[filter.urlParam][filter.key];
+			var confirm = $mdDialog.confirm()
+				.title('Hide ' + filter.key + '?')
+				.content('If you confirm, changes concerning ' + filter.urlParam + ' ' + filter.key + ' will forever be hidden')
+				//.targetEvent(ev)
+				.ok('Hide')
+				.cancel('Cancel');
+			$mdDialog.show(confirm).then(function() {
+				Changes.hide(ctrl.dataset.name, ctrl.db, filter.urlParam, filter.key).then(refresh);
+			});
+		};
+
+		ctrl.deleteType = function (filter) {
+			delete ctrl.changes.facets.types[filter.key];
+			ctrl.changes.facets.joinTypes && delete ctrl.changes.facets.joinTypes[filter.key];
+			var confirm = $mdDialog.confirm()
+				.title('Hide change type ' + filter.key + '?')
+				.content('If you confirm, ' + filter.key + ' changes will forever be hidden')
+				//.targetEvent(ev)
+				.ok('Hide')
+				.cancel('Cancel');
+			$mdDialog.show(confirm).then(function() {
+				Changes.hide(ctrl.dataset.name, ctrl.db, 'type', filter.key).then(refresh);
+			});
 		};
 
 		ctrl.reset = function (p) {

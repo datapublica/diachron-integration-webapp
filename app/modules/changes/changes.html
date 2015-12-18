@@ -22,7 +22,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.types"
                          id="checkbox-chart-types"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteType(data)"></div>
 
                     <div class="btn-reset">
                         <md-button class="md-raised" ng-click="Changes.reset()">Réinitialiser</md-button>
@@ -36,7 +36,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.joinTypes"
                          id="checkbox-chart-joinTypes"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteType(data)"></div>
 
                     <div>
                         <md-button class="md-raised" ng-click="Changes.reset('joinTypes')">Réinitialiser</md-button>
@@ -50,7 +50,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.measure"
                          id="checkbox-chart-measure"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.measure">
                         <md-button class="md-raised" ng-click="Changes.reset(['measure', 'measure-val'])">Réinitialiser</md-button>
@@ -64,7 +64,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.dimension"
                          id="checkbox-chart-dimension"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.dimension">
                         <md-button class="md-raised" ng-click="Changes.reset('dimension')">Réinitialiser</md-button>
@@ -78,7 +78,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.measure_val"
                          id="checkbox-chart-measure_val"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset"  ng-if="Changes.selections.measure_val">
                         <md-button class="md-raised" ng-click="Changes.reset('measure_val')">Réinitialiser</md-button>
@@ -92,7 +92,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.property"
                          id="checkbox-chart-property"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.property">
                         <md-button class="md-raised" ng-click="Changes.reset(['property', 'value'])">Réinitialiser</md-button>
@@ -106,7 +106,7 @@
                     <div checkbox-chart
                          config="Changes.checkboxChart.value"
                          id="checkbox-chart-value"
-                         on-check="Changes.filter(data)"></div>
+                         on-check="Changes.filter(data)" on-delete="Changes.deleteFilter(data)"></div>
 
                     <div class="btn-reset" ng-if="Changes.selections.value">
                         <md-button class="md-raised" ng-click="Changes.reset('value')">Réinitialiser</md-button>

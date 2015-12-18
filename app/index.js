@@ -26,7 +26,7 @@ const ngModule = angular.module('diachron', [
 	require('./modules/home'),
 	require('./modules/changes'),
 	require('./modules/navbar'),
-	'ngLocale'
+	'ngLocale', 'ngMaterial'
 ])
 	.config(require('./app'))
 	.run(($rootScope, $log) => {

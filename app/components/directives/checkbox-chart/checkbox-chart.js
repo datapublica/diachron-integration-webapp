@@ -5,12 +5,14 @@ export default ngModule => {
         return {
             scope: {
                 config: '=',
-                onCheck: '&'
+                onCheck: '&',
+                onDelete: '&'
             },
             template: require('./checkbox-chart.part.html'),
-            link: function (scope) {
+            link: function (scope, element, attr) {
 
                 scope.squareBox = !scope.config.useRadio;
+                scope.allowDelete = !!attr.onDelete;
 
                 // Pre-checking boxes
                 if (angular.isDefined(scope.config.selectedFilters)) {
@@ -42,6 +44,11 @@ export default ngModule => {
                     filter.checked = !filter.checked;
                     filter.urlParam = scope.config.urlParam;
                     scope.onCheck({data: filter});
+                };
+
+                scope.deleteFilter = function (filter) {
+                    filter.urlParam = scope.config.urlParam;
+                    scope.onDelete({data: filter});
                 };
 
                 var maxLabelLength = 109;
