@@ -50,10 +50,10 @@
                     </div>
 
                     <div class="section">
-                        <h4>Data completion analysis</h4>
+                        <h4>Quality Assessment</h4>
 
-                        <div class="section-container">
-
+                        <div class="section-container" ng-if="Home.qualityChartConfig">
+                            <highchart config="Home.qualityChartConfig"></highchart>
                         </div>
                     </div>
 

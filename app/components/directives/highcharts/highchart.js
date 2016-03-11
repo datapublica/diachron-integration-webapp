@@ -11,6 +11,7 @@ function highchart($parse, $timeout) {
         replace: true,
         link: function (scope, element, attrs) {
             var config = $parse(attrs.config)(scope);
+            console.log(config);
             Highcharts.createChart(element[0], config);
         }
     };
